@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Loan Payment</title>
+    <link rel="stylesheet" href="CSS/style.css" type="text/css" />
+    <script>
+        function btnCalculate_Click() {
+            var initialLoanAmountWidget;
+            var initialLoanAmountNumber;
+            var numberOfPeriodsWidget;
+            var numberOfPeriodsNumber;
+            var interestRateWidget;
+            var interestRateNumber;
+            var resultLoanPaymentWidget;
+            var resultLoanPaymentNumber;
+            var errorFlag = false;
+            initialLoanAmountWidget = document.getElementById("txtLoanAmount");
+            numberOfPeriodsWidget = document.getElementById("txtNumberPeriods");
+            interestRateWidget = document.getElementById("txtInterestRate");
+            resultLoanPaymentWidget = document.getElementById("txtResult");
+            initialLoanAmountNumber = parseFloat(initialLoanAmountWidget.value);
+            if (isNaN(initialLoanAmountNumber)) {
+                errorFlag = true;
+            }
+            numberOfPeriodsNumber = parseInt(numberOfPeriodsWidget.value);
+            if (isNaN(numberOfPeriodsNumber)) {
+                errorFlag = true;
+            }
+            else {
+                numberOfPeriodsNumber = numberOfPeriodsNumber * 12;
+            }
+            interestRateNumber = parseFloat(interestRateWidget.value);
+            if (isNaN(interestRateNumber)) {
+                errorFlag = true;
+            }
+            else {
+                interestRateNumber = (interestRateNumber / 12) / 100;
+            }
+            if (errorFlag) {
+                resultLoanPaymentWidget.value = "Cannot calculate. Input not numeric."
+            }
+            else {
+                resultLoanPaymentNumber = (interestRateNumber * initialLoanAmountNumber) / (1 - ((1 + interestRateNumber) ** (numberOfPeriodsNumber * -1)));
+                resultLoanPaymentWidget.value = resultLoanPaymentNumber.toFixed(2);
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav id="HeaderWrap" class="BottomBorder">
+            <h1>Menu</h1>
+            <ul>
+                <li><a href="./Index.html">Index</a></li>
+                <li><a href="./Afford.html">Afford</a></li>
+                <li><a href="./CompoundInterest.html">Compund Interest</a></li>
+                <li><a href="./Payment.html">Payment</a></li>
+            </ul>
+        </nav>
+    </header>
+    <form id="numericForm">
+        <fieldset form="numericForm">
+            <legend>Enter Input to Calculate Loan Payment:</legend>
+            <label for="txtLoanAmount">Initial Loan Amount (Dollars):</label>
+            <input type="text" id="txtLoanAmount" />
+            <br />
+            <label for="txtNumberPeriods">Number of Periods (Years):</label>
+            <input type="text" id="txtNumberPeriods" />
+            <br />
+            <label for="txtInterestRate">Interest Rate (Years):</label>
+            <input type="text" id="txtInterestRate" />
+            <br />
+            <label for="txtResult">Loan Payment:</label>
+            <input type="text" id="txtResult" />
+            <br />
+            <button id="btnCalculate" type="button"
+                    onclick="btnCalculate_Click()">
+                Validate
+            </button>
+        </fieldset>
+    </form>
+    <footer id="FooterWrap" class="BottomBorder">
+        <address>
+            &copy;Tanner Cunningham<br />
+        </address>
+    </footer>
+</body>
+
+</html>

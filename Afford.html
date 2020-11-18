@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Max Affordable Payment</title>
+    <link rel="stylesheet" href="CSS/style.css" type="text/css" />
+    <script>
+        function btnCalculate_Click() {
+            var monthlyIncomeWidget;
+            var monthlyIncomeNumber;
+            var totalExpensesWidget;
+            var totalExpensesNumber;
+            var resultMaxPaymentWidget;
+            var resultMaxPaymentNumber;
+            var errorFlag = false;
+            monthlyIncomeWidget = document.getElementById("txtIncome");
+            totalExpensesWidget = document.getElementById("txtExpenses");
+            resultMaxPaymentWidget = document.getElementById("txtResult");
+            monthlyIncomeNumber = parseFloat(monthlyIncomeWidget.value);
+            if (isNaN(monthlyIncomeNumber)) {
+                errorFlag = true;
+            }
+            else {
+                monthlyIncomeNumber = monthlyIncomeNumber * 12;
+            }
+            totalExpensesNumber = parseFloat(totalExpensesWidget.value);
+            if (isNaN(totalExpensesNumber)) {
+                errorFlag = true;
+            }
+            if (errorFlag) {
+                resultMaxPaymentWidget.value = "Cannot calculate. Input not numeric."
+            }
+            else {
+                resultMaxPaymentNumber = Math.min((monthlyIncomeNumber * .29), (monthlyIncomeNumber - totalExpensesNumber) * .39);
+                resultMaxPaymentWidget.value = resultMaxPaymentNumber.toFixed(2);
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav id="HeaderWrap" class="BottomBorder">
+            <h1>Menu</h1>
+            <ul>
+                <li><a href="./Index.html">Index</a></li>
+                <li><a href="./Afford.html">Afford</a></li>
+                <li><a href="./CompoundInterest.html">Compund Interest</a></li>
+                <li><a href="./Payment.html">Payment</a></li>
+            </ul>
+        </nav>
+    </header>
+    <form id="numericForm">
+        <fieldset form="numericForm">
+            <legend>Enter Input to Calculate the Maximum Affordable Payment:</legend>
+            <label for="txtIncome">Monthly Income (Dollars):</label>
+            <input type="text" id="txtIncome" />
+            <br />
+            <label for="txtExpenses">Total Expenses:</label>
+            <input type="text" id="txtExpenses" />
+            <br />
+            <label for="txtResult">Result</label>
+            <input type="text" id="txtResult" />
+            <br />
+            <button id="btnCalculate" type="button"
+                    onclick="btnCalculate_Click()">
+                Validate
+            </button>
+        </fieldset>
+    </form>
+    <footer id="FooterWrap" class="BottomBorder">
+        <address>
+            &copy;Tanner Cunningham<br />
+        </address>
+    </footer>
+</body>
+
+</html>

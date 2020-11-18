@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Compound Interest</title>
+    <link rel="stylesheet" href="CSS/style.css" type="text/css" />
+    <script>
+        function btnCalculate_Click() {
+            var initialInvestmentAmountWidget;
+            var initialInvestmentAmountNumber;
+            var numberOfPeriodsWidget;
+            var numberOfPeriodsNumber;
+            var interestRateWidget;
+            var interestRateNumber;
+            var resultCompoundInterestWidget;
+            var resultCompoundInterestNumber;
+            var errorFlag = false;
+            initialInvestmentAmountWidget = document.getElementById("txtInvestment");
+            numberOfPeriodsWidget = document.getElementById("txtNumberPeriods");
+            interestRateWidget = document.getElementById("txtInterestRate");
+            resultCompoundInterestWidget = document.getElementById("txtResult");
+            initialInvestmentAmountNumber = parseInt(initialInvestmentAmountWidget.value);
+            if (isNaN(initialInvestmentAmountNumber)) {
+                errorFlag = true;
+            }
+            numberOfPeriodsNumber = parseInt(numberOfPeriodsWidget.value);
+            if (isNaN(numberOfPeriodsNumber)) {
+                errorFlag = true;
+            }
+            else {
+                numberOfPeriodsNumber = numberOfPeriodsNumber * 12;
+            }
+            interestRateNumber = parseFloat(interestRateWidget.value);
+            if (isNaN(interestRateNumber)) {
+                errorFlag = true;
+            }
+            else {
+                interestRateNumber = (interestRateNumber / 12) / 100;
+            }
+            if (errorFlag) {
+                resultCompoundInterestWidget.value = "Cannot calculate. Input not numeric."
+            }
+            else {
+                resultCompoundInterestNumber = initialInvestmentAmountNumber * ((1 + (interestRateNumber / 12)) ** (12 * numberOfPeriodsNumber));
+                resultCompoundInterestWidget.value = resultCompoundInterestNumber.toFixed(2);
+
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav id="HeaderWrap" class="BottomBorder">
+            <h1>Menu</h1>
+            <ul>
+                <li><a href="./Index.html">Index</a></li>
+                <li><a href="./Afford.html">Afford</a></li>
+                <li><a href="./CompoundInterest.html">Compund Interest</a></li>
+                <li><a href="./Payment.html">Payment</a></li>
+            </ul>
+        </nav>
+    </header>
+    <form id="numericForm">
+        <fieldset form="numericForm">
+            <legend>Enter Input to Calculate Compund Interest:</legend>
+            <label for="txtInvestment">Initial Investment Amount:</label>
+            <input type="text" id="txtInvestment" />
+            <br />
+            <label for="txtNumberPeriods">Number of Periods:</label>
+            <input type="text" id="txtNumberPeriods" />
+            <br />
+            <label for="txtInterestRate">Interest Rate per Period:</label>
+            <input type="text" id="txtInterestRate" />
+            <br />
+            <label for="txtResult">Result</label>
+            <input type="text" id="txtResult" />
+            <br />
+            <button id="btnCalculate" type="button"
+                    onclick="btnCalculate_Click()">
+                Validate
+            </button>
+        </fieldset>
+    </form>
+    <footer id="FooterWrap" class="BottomBorder">
+        <address>
+            &copy;Tanner Cunningham<br />
+        </address>
+    </footer>
+</body>
+
+</html>
